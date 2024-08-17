@@ -1,0 +1,18 @@
+.{
+    .name = "zig-time",
+    .version = "0.0.0",
+    .minimum_zig_version = "0.13.0",
+    .dependencies = .{
+        .@"zig-extras" = .{
+            .url = "git+https://github.com/deanveloper/zig-extras#3da78482b151d4668cef2f52ecaa6375f2fe7c9e",
+            .hash = "1220b86aaf7d6e47bb22a7e48325d9163927a61fb29824ac0d39f3d4898b4d4ecce0",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "main.zig",
+        "time.zig",
+        "README.md",
+    },
+}
