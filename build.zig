@@ -1,11 +1,24 @@
 const std = @import("std");
-const deps = @import("./deps.zig");
 
 pub fn build(b: *std.Build) void {
-    const t = b.addTest(.{
-        .root_source_file = .{ .path = "main.zig" },
+    const optimize = b.standardOptimizeOption(.{});
+    const target = b.standardTargetOptions(.{});
+
+    const extras = b.dependency("zig-extras", .{});
+    const extras_module = extras.module("extras");
+
+    const time_module = b.addModule("time", .{
+        .optimize = optimize,
+        .target = target,
+        .imports = &.{.{ .name = "extras", .module = extras_module }},
     });
-    deps.addAllTo(t);
+
+    const t = b.addTest(.{
+        .optimize = optimize,
+        .target = target,
+        .root_source_file = b.path("main.zig"),
+    });
+    t.root_module.addImport("time", time_module);
 
     const run_t = b.addRunArtifact(t);
 
